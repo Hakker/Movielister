@@ -8,3 +8,8 @@ what it will do in the end...
 - add the contents of the xml file in a relational database
 - search movies based by year, actors/actresses, directors, studio
 - Basically a simplified self hosted version of your own imdb of your own movie collection.
+
+Requirements:
+- a running webserver Apache/Nginx/HTTPD/IIS
+- PHP 7.x
+- Mysql/Mariadb
