@@ -3,6 +3,7 @@
     "description": "XML parser to insert into SQL database",
     "type": "project",
     "require": {
-        "ext-pdo_mysql": "^7.0"
+        "ext-pdo_mysql": "^7.0",
+        "faapz/pdo": "^1.11"
     }
 }
