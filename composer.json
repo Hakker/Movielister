@@ -1,0 +1,8 @@
+{
+    "name": "hakker/movielister",
+    "description": "XML parser to insert into SQL database",
+    "type": "project",
+    "require": {
+        "ext-pdo_mysql": "^7.0"
+    }
+}
