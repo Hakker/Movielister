@@ -4,6 +4,7 @@
     "type": "project",
     "require": {
         "ext-pdo_mysql": "^7.0",
-        "faapz/pdo": "^1.11"
+        "faapz/pdo": "^1.11",
+        "monolog/monolog": "^1.24"
     }
 }

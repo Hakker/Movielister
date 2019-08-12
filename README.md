@@ -16,6 +16,9 @@ This project is still heavily in progress and sure as hell isn't ready for the o
 - PHP Composer (for vendor and autoloader)
 - MySQL/MariaDB
 
+#### Used PHP libraries
+- monolog/monolog
+
 #### Initialisation:
 - Go to the project folder, and use: `php composer.phar install` (make sure PHP binary works)
 
