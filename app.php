@@ -5,6 +5,8 @@ require __DIR__ . '/vendor/autoload.php';
 // Load our own custom classes, so it's apart from our app.
 include_once __DIR__ . '/class_log.php';
 
+// Making the functions simpler accessible by using 'use' command.
+// Hence, now you don't need to use FaaPz\PDO\Database, but simply 'Database' as example.
 use CHH\Optparse;
 use FaaPz\PDO\Database;
 use Monolog\Logger;
