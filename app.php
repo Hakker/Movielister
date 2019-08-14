@@ -1,9 +1,11 @@
+#!/usr/bin/php
 <?php
 
 // Load the autoloader of vendors (composer).
 require __DIR__ . '/vendor/autoload.php';
 // Load our own custom classes, so it's apart from our app.
 include_once __DIR__ . '/class_log.php';
+include_once __DIR__ . '/class_db_map.php';
 
 // Making the functions simpler accessible by using 'use' command.
 // Hence, now you don't need to use FaaPz\PDO\Database, but simply 'Database' as example.
@@ -22,8 +24,8 @@ use Monolog\Logger;
 $database = [
     'host' => 'localhost',
     'port' => 3306,
-    'user' => 'root',
-    'pass' => 'root',
+    'user' => 'test',
+    'pass' => 'test',
     'db'   => 'movielister',
     'char' => 'utf8'
 ];
@@ -46,7 +48,7 @@ $log_screen = true;
 
 // Let's initialize the logger
 $logger = new Log('Movielister', $log_level, $log_file, $log_screen);
-$logger->debug('Starting the application...');
+$logger->info('Starting the application...');
 
 // Let's check the database connection, and when it works we can use it.
 try {
@@ -56,8 +58,35 @@ try {
     $logger->error('Error: ' . $e->getMessage());
     exit(1);
 }
-$logger->debug('Connection with MySQL host ' . $database['host'] . ' created.');
+$logger->info('Connection with MySQL host ' . $database['host'] . ' created.');
 
 // MySQL connection established, let's actually do something.
+$cmdparser = new Optparse\Parser();
+
+function usage()
+{
+    global $cmdparser, $logger;
+    $logger->error("{$cmdparser->usage()}");
+    exit(1);
+}
+
+$cmdparser->addFlag('help', ['alias' => '-h'], 'usage');
+$cmdparser->addArgument('file_or_folder', ['required' => true]);
+
+try {
+    $cmdparser->parse();
+} catch (Optparse\Exception $e) {
+    usage();
+}
+
+// Check if file or folder exists, and if not, return error.
+if (!file_exists($cmdparser['file_or_folder'])) {
+    $logger->error('File or Folder "' . $cmdparser['file_or_folder'] . '" does not exist !');
+    exit(1);
+}
+if (!is_file($cmdparser['file_or_folder']) && !is_dir($cmdparser['file_or_folder'])) {
+    $logger->error('Object "' . $cmdparser['file_or_folder'] . '" is not a file or a folder !');
+    exit(1);
+}
 
 exit(0);

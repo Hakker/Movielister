@@ -8,7 +8,7 @@ class Log
     private $log_file;
     private $log_screen;
 
-    function __construct($log_name, $log_level, $log_file, $log_screen)
+    public function __construct($log_name, $log_level, $log_file, $log_screen)
     {
         // Let's initialize the logger
         if ($log_file !== false) {
@@ -38,7 +38,7 @@ class Log
         }
     }
 
-    function debug($text)
+    public function debug($text)
     {
         if ($this->log_file !== null) {
             $this->log_file->debug($text);
@@ -48,7 +48,7 @@ class Log
         }
     }
 
-    function info($text)
+    public function info($text)
     {
         if ($this->log_file !== null) {
             $this->log_file->info($text);
@@ -58,7 +58,7 @@ class Log
         }
     }
 
-    function warning($text)
+    public function warning($text)
     {
         if ($this->log_file !== null) {
             $this->log_file->warning($text);
@@ -68,7 +68,7 @@ class Log
         }
     }
 
-    function error($text)
+    public function error($text)
     {
         if ($this->log_file !== null) {
             $this->log_file->error($text);
