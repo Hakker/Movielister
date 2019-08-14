@@ -17,7 +17,10 @@ This project is still heavily in progress and sure as hell isn't ready for the o
 - MySQL/MariaDB
 
 #### Used PHP libraries
-- monolog/monolog
+- Seldaek/monolog (https://github.com/Seldaek/monolog)
+- CHH/Optparse
+- FaaPz/PDO (https://github.com/FaaPz/PDO)
+
 
 #### Initialisation:
 - Go to the project folder, and use: `php composer.phar install` (make sure PHP binary works)
