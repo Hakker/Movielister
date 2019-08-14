@@ -1,33 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <movie>
-	<title>I Want to be Loved by You. Kaede Fuyutsuki</title>
-	<originaltitle></originaltitle>
+	<title>This is our title</title>
+	<originaltitle>12345 Original title</originaltitle>
 	<sorttitle></sorttitle>
-	<set>I Want To Be Loved By You</set>
+	<set>Original titles</set>
 	<year>2013</year>
 	<top250></top250>
 	<trailer></trailer>
-	<votes></votes>
-	<rating></rating>
+	<votes>150</votes>
+	<rating>7.6</rating>
 	<outline></outline>
-	<plot></plot>
-	<tagline></tagline>
+	<plot>A completely original title</plot>
+	<tagline>Be original</tagline>
 	<runtime>107</runtime>
 	<releasedate>2013-12-28</releasedate>
-	<studio>Attackers</studio>
-	<thumb>http://pics.r18.com/digital/video/adn00008/adn00008pl.jpg</thumb>
+	<studio>Fakes-r-Us</studio>
+	<thumb>https://images.prop24.com/210229244</thumb>
 	<fanart>
-		<thumb>http://pics.r18.com/digital/video/adn00008/adn00008pl.jpg</thumb>
+		<thumb>https://images.prop24.com/210229244</thumb>
 	</fanart>
 	<mpaa>XXX</mpaa>
-	<id>ADN-008</id>
-	<genre>Humiliation</genre>
-	<genre>Married Woman</genre>
+	<id>org-0001</id>
+	<genre>Original</genre>
+	<genre>Very Original</genre>
 	<actor>
-		<name>Kaede Fuyutsuki</name>
-		<role></role>
-		<thumb>http://pics.r18.com/mono/actjpgs/huyutuki_kaede.jpg</thumb>
+		<name>Serious Sam</name>
+		<role>Duke Nukem</role>
+		<thumb>https://cdn.vox-cdn.com/thumbor/Ecpb4dzcgJ-47qLuP3zBLRRUD44=/0x42:1024x725/1220x813/filters:focal(0x42:1024x725):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/15542263/serioussam-1024x768.0.jpg</thumb>
 	</actor>
-	<director>Nagira Kenzo</director>
+	<actor>
+		<name>Duke Nukem</name>
+		<role>Serious Sam</role>
+		<thumb>https://cdn.vox-cdn.com/thumbor/3iJgC7-zCiYmQNVG4mM8qp_EXPc=/0x0:1440x810/1220x813/filters:focal(578x203:808x433):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/54697719/duke-nukem-3d-art_1440.0.0.jpg</thumb>
+	</actor>
+	<director>Claptrap</director>
 	<Added>22-5-2017 19:11:28</Added>
 </movie>
