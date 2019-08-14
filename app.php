@@ -5,6 +5,10 @@ require __DIR__ . '/vendor/autoload.php';
 // Load our own custom classes, so it's apart from our app.
 include_once __DIR__ . '/class_log.php';
 
+use CHH\Optparse;
+use FaaPz\PDO\Database;
+use Monolog\Logger;
+
 /**
  * Configuration, set here some of the configs if needed.
  */
@@ -34,33 +38,17 @@ $database_dsn = sprintf(
  * LogLevels: DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY
  * For this software we only use: DEBUG, INFO, WARNING and ERROR
  */
-$log_level = Monolog\Logger::DEBUG;
+$log_level = Logger::DEBUG;
+$log_file = 'app.log';
 $log_screen = true;
 
 // Let's initialize the logger
-$log_to_file = new Monolog\Logger('movielister');
-try {
-    $log_to_file = new Monolog\Logger('movielister');
-    $log_to_screen = new Monolog\Logger('movielister');
-
-    $log_to_file->pushHandler(new Monolog\Handler\StreamHandler('app.log', $log_level));
-    if ($log_screen === true) {
-        $log_to_screen->pushHandler(new Monolog\Handler\StreamHandler('php://stdout', $log_level));
-    } else {
-        $log_to_screen = null;
-    }
-} catch (Exception $e) {
-    echo "Error trying to open log file!\n";
-    echo "Error: " . $e->getMessage() . "\n";
-    exit(1);
-}
-
-$logger = new Log($log_to_file, $log_to_screen);
+$logger = new Log('Movielister', $log_level, $log_file, $log_screen);
 $logger->debug('Starting the application...');
 
 // Let's check the database connection, and when it works we can use it.
 try {
-    $pdo = new \FaaPz\PDO\Database($database_dsn, $database['user'], $database['pass']);
+    $pdo = new Database($database_dsn, $database['user'], $database['pass']);
 } catch (Exception $e) {
     $logger->error('Error trying to test MySQL!');
     $logger->error('Error: ' . $e->getMessage());

@@ -1,53 +1,80 @@
 <?php
 
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+
 class Log
 {
-    private $pointer_log1;
-    private $pointer_log2;
+    private $log_file;
+    private $log_screen;
 
-    function __construct($pointer_log1, $pointer_log2)
+    function __construct($log_name, $log_level, $log_file, $log_screen)
     {
-        $this->pointer_log1 = $pointer_log1;
-        $this->pointer_log2 = $pointer_log2;
+        // Let's initialize the logger
+        if ($log_file !== false) {
+            try {
+                $this->log_file = new Logger($log_name);
+                $this->log_file->pushHandler(new StreamHandler($log_file, $log_level));
+            } catch (Exception $e) {
+                echo "Error trying to open log file!\n";
+                echo "Error: " . $e->getMessage() . "\n";
+                exit(1);
+            }
+        } else {
+            $this->log_file = null;
+        }
+
+        if ($log_screen !== false) {
+            try {
+                $this->log_screen = new Logger($log_name);
+                $this->log_screen->pushHandler(new StreamHandler('php://stdout', $log_level));
+            } catch (Exception $e) {
+                echo "Error trying to open log file!\n";
+                echo "Error: " . $e->getMessage() . "\n";
+                exit(1);
+            }
+        } else {
+            $this->log_screen = null;
+        }
     }
 
     function debug($text)
     {
-        if ($this->pointer_log1 !== null) {
-            $this->pointer_log1->debug($text);
+        if ($this->log_file !== null) {
+            $this->log_file->debug($text);
         }
-        if ($this->pointer_log2 !== null) {
-            $this->pointer_log2->debug($text);
+        if ($this->log_screen !== null) {
+            $this->log_screen->debug($text);
         }
     }
 
     function info($text)
     {
-        if ($this->pointer_log1 !== null) {
-            $this->pointer_log1->info($text);
+        if ($this->log_file !== null) {
+            $this->log_file->info($text);
         }
-        if ($this->pointer_log2 !== null) {
-            $this->pointer_log2->info($text);
+        if ($this->log_screen !== null) {
+            $this->log_screen->info($text);
         }
     }
 
     function warning($text)
     {
-        if ($this->pointer_log1 !== null) {
-            $this->pointer_log1->warning($text);
+        if ($this->log_file !== null) {
+            $this->log_file->warning($text);
         }
-        if ($this->pointer_log2 !== null) {
-            $this->pointer_log2->warning($text);
+        if ($this->log_screen !== null) {
+            $this->log_screen->warning($text);
         }
     }
 
     function error($text)
     {
-        if ($this->pointer_log1 !== null) {
-            $this->pointer_log1->error($text);
+        if ($this->log_file !== null) {
+            $this->log_file->error($text);
         }
-        if ($this->pointer_log2 !== null) {
-            $this->pointer_log2->error($text);
+        if ($this->log_screen !== null) {
+            $this->log_screen->error($text);
         }
     }
 }
