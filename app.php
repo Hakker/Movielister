@@ -89,4 +89,29 @@ if (!is_file($cmdparser['file_or_folder']) && !is_dir($cmdparser['file_or_folder
     exit(1);
 }
 
+// Okay it looks fine, let's check if the source is a folder, or file.
+// Depending on this, we handle it.
+$logger->debug('Checking if a file or folder is requested.');
+$extensions = ['xml'];
+$files = [];
+if (is_dir($cmdparser['file_or_folder'])) {
+    $logger->debug('The source is a folder, scanning...');
+    $folder = new RecursiveDirectoryIterator($cmdparser['file_or_folder']);
+    foreach (new RecursiveIteratorIterator($folder) as $file) {
+        $check_array = explode('.', $file);
+        if (in_array(strtolower(end($check_array)), $extensions)) {
+            $files[] = $file->getPathName();
+        }
+    }
+}
+if (is_file($cmdparser['file_or_folder'])) {
+    $logger->debug('The source is a file.');
+    $check_array = explode('.', $cmdparser['file_or_folder']);
+    if (in_array(strtolower(end($check_array)), $extensions)) {
+        $files[] = $cmdparser['file_or_folder'];
+    }
+}
+
+var_dump($files);
+
 exit(0);
