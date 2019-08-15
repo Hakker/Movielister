@@ -92,7 +92,7 @@ if (!is_file($cmdparser['file_or_folder']) && !is_dir($cmdparser['file_or_folder
 // Okay it looks fine, let's check if the source is a folder, or file.
 // Depending on this, we handle it.
 $logger->debug('Checking if a file or folder is requested.');
-$extensions = ['xml'];
+$extensions = ['xml','nfo'];
 $files = [];
 if (is_dir($cmdparser['file_or_folder'])) {
     $logger->debug('The source is a folder, scanning...');
