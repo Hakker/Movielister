@@ -132,7 +132,11 @@ foreach ($files as $file) {
             exit(1);
         }
     } catch (Exception $e) {
-        $logger->error('A unexpected error occurred while parsing ' . $file . ' and exiting...');
+        if ($cmdparser['force']) {
+            $logger->warning('A unexpected error occurred while parsing ' . $file . ', continue...');
+            continue;
+        }
+        $logger->error('A unexpected error occurred while parsing ' . $file . ', exiting...');
         exit(1);
     }
 }
