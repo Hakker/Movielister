@@ -12,6 +12,8 @@ include_once __DIR__ . '/class_db_map.php';
 use CHH\Optparse;
 use FaaPz\PDO\Database;
 use Monolog\Logger;
+use Laravie\Parser\Xml\Reader;
+use Laravie\Parser\Xml\Document;
 
 /**
  * Configuration, set here some of the configs if needed.
@@ -71,6 +73,7 @@ function usage()
 }
 
 $cmdparser->addFlag('help', ['alias' => '-h'], 'usage');
+$cmdparser->addFlag('force', ['alias' => '-f']);
 $cmdparser->addArgument('file_or_folder', ['required' => true]);
 
 try {
@@ -91,11 +94,11 @@ if (!is_file($cmdparser['file_or_folder']) && !is_dir($cmdparser['file_or_folder
 
 // Okay it looks fine, let's check if the source is a folder, or file.
 // Depending on this, we handle it.
-$logger->debug('Checking if a file or folder is requested.');
-$extensions = ['xml','nfo'];
+$logger->info('Checking if a file or folder is requested.');
+$extensions = ['xml'];
 $files = [];
 if (is_dir($cmdparser['file_or_folder'])) {
-    $logger->debug('The source is a folder, scanning...');
+    $logger->info('The source is a folder, scanning...');
     $folder = new RecursiveDirectoryIterator($cmdparser['file_or_folder']);
     foreach (new RecursiveIteratorIterator($folder) as $file) {
         $check_array = explode('.', $file);
@@ -105,13 +108,35 @@ if (is_dir($cmdparser['file_or_folder'])) {
     }
 }
 if (is_file($cmdparser['file_or_folder'])) {
-    $logger->debug('The source is a file.');
+    $logger->info('The source is a file.');
     $check_array = explode('.', $cmdparser['file_or_folder']);
     if (in_array(strtolower(end($check_array)), $extensions)) {
         $files[] = $cmdparser['file_or_folder'];
     }
 }
 
-var_dump($files);
+// We have now a file list (or single file in the array) to be parsed.
+// Let's parse the XML file.
+// You can set a flag to continue with the next file, even if the file is corrupted or invalid.
+foreach ($files as $file) {
+    try {
+        $logger->info('Parsing file ' . $file);
+        $xml = (new Reader(new Document()))->load($file);
+        if ($xml === null) {
+            // File is not parsable, depending on the force flag we either give a error or warning.
+            if ($cmdparser['force']) {
+                $logger->warning('The file ' . $file . ' was unable to be parsed, continue...');
+                continue;
+            }
+            $logger->error('The file ' . $file . ' was unable to be parsed, exiting...');
+            exit(1);
+        }
+    } catch (Exception $e) {
+        $logger->error('A unexpected error occurred while parsing ' . $file . ' and exiting...');
+        exit(1);
+    }
+}
+
+$logger->info('Parser has run successfully, exiting.');
 
 exit(0);

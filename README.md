@@ -20,7 +20,8 @@ This project is still heavily in progress and sure as hell isn't ready for the o
 - Seldaek/monolog (https://github.com/Seldaek/monolog)
 - CHH/Optparse
 - FaaPz/PDO (https://github.com/FaaPz/PDO)
-
+- Laravie/Parser (https://github.com/crynobone)
+- Symfony (partly, needed for parser)
 
 #### Initialisation:
 - Go to the project folder, and use: `php composer.phar install` (make sure PHP binary works)
