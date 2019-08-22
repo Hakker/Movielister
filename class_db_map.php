@@ -2,7 +2,7 @@
 
 class db_map
 {
-    private $map;
+    public $map;
 
     public function __construct()
     {
@@ -25,29 +25,29 @@ class db_map
          */
         $this->map = [
             'title' => [
-                'title' => 'movie|title',
-                'originaltitle' => 'movie|originaltitle',
-                'sorttitle' => 'movie|sorttitle',
-                'set' => 'movie|set',
-                'year' => 'movie|year',
-                'top250' => 'movie|top250',
-                'trailer' => 'movie|trailer',
-                'votes' => 'movie|votes',
-                'rating' => 'movie|rating',
-                'outline' => 'movie|outline',
-                'plot' => 'movie|plot',
-                'tagline' => 'movie|tagline',
-                'runtime' => 'movie|runtime',
-                'releasedate' => 'movie|releasedate',
-                'studio' => 'movie|studio',
-                'thumb' => 'movie|thumb',
-                'fanart' => 'movie|fanart',
-                'mpaa' => 'movie|mpaa',
-                'movie_id' => 'movie|id',
-                'genre' => 'movie|genre',
-                'actor' => 'movie|actor',
-                'director' => 'movie|director',
-                'added' => 'movie|Added'
+                'title' => 'title',
+                'originaltitle' => 'originaltitle',
+                'sorttitle' => 'sorttitle',
+                'set' => 'set',
+                'year' => 'year',
+                'top250' => 'top250',
+                'trailer' => 'trailer',
+                'votes' => 'votes',
+                'rating' => 'rating',
+                'outline' => 'outline',
+                'plot' => 'plot',
+                'tagline' => 'tagline',
+                'runtime' => 'runtime',
+                'releasedate' => 'releasedate',
+                'studio' => 'studio',
+                'thumb' => 'thumb',
+                'fanart' => 'fanart',
+                'mpaa' => 'mpaa',
+                'movie_id' => 'id',
+                'genre' => 'genre',
+                'actor' => 'actor',
+                'director' => 'director',
+                'added' => 'Added'
             ]
         ];
     }

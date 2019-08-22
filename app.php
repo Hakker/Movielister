@@ -6,6 +6,7 @@ require __DIR__ . '/vendor/autoload.php';
 // Load our own custom classes, so it's apart from our app.
 include_once __DIR__ . '/class_log.php';
 include_once __DIR__ . '/class_db_map.php';
+include_once __DIR__ . '/class_custom.php';
 
 // Making the functions simpler accessible by using 'use' command.
 // Hence, now you don't need to use FaaPz\PDO\Database, but simply 'Database' as example.
@@ -68,7 +69,7 @@ $cmdparser = new Optparse\Parser();
 function usage()
 {
     global $cmdparser, $logger;
-    $logger->error("{$cmdparser->usage()}");
+    $logger->info("{$cmdparser->usage()}");
     exit(1);
 }
 
@@ -131,6 +132,27 @@ foreach ($files as $file) {
             $logger->error('The file ' . $file . ' was unable to be parsed, exiting...');
             exit(1);
         }
+
+        // XML is parsed, now let's validate if all the components are inside against the mapping.
+        $mapping = new db_map();
+        foreach ($mapping->map as $key1 => $value1) {
+            $logger->info('Validating mapping key ' . $key1 . ' ...');
+            foreach ($value1 as $key2 => $value2) {
+                $logger->debug('Validating key ' . $key2 . ' against XML data ' . $value2);
+                $keys = explode('|', $value2);
+                $data = custom_functions::validate_object($xml->getContent(), $keys);
+                if ($data === false) {
+                    if ($cmdparser['force']) {
+                        $logger->warning('The key ' . $value2 . ' could not be found in the XML, skipping XML...');
+                        continue 2;
+                    }
+                    $logger->error('The key ' . $value2 . ' could not be found in the XML, exiting...');
+                    exit(1);
+                }
+            }
+        }
+        // XML data contains everything we need to dump it into MySQL !
+        $logger->info('Parsing mapping key ' . $key1 . ' for writing to database ...');
     } catch (Exception $e) {
         if ($cmdparser['force']) {
             $logger->warning('A unexpected error occurred while parsing ' . $file . ', continue...');
